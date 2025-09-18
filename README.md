@@ -173,7 +173,7 @@ Linear Regression - Regular Cars R^2 =0.44, MAE  6384.412946, RMSE= 10275.45
 
 ### Executive Summary
 
-Using regression analysis on a large dataset of used car listings, I examined what drives vehicle prices in today’s market. My models achieved predictive performance 0.49–0.56, meaning they explain about half of the variation in prices. While not perfect, these results highlight key factors that consistently impact resale value.
+Using regression analysis on a large dataset of used car listings, I examined what drives vehicle prices in today’s market. My models achieved predictive performance 0.49–0.56, meaning they explain about half of the variation in prices. These results highlight key factors that consistently impact resale value.
 
 The findings confirm that: car age, mileage, condition, brand, and title status are the most important price drivers.
 
