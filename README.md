@@ -1,7 +1,8 @@
 # UC Berkeley ML/AI project: What Drives the Price of a Car?
-(Data analysis and visualization with python, pandas, dataframe, matplotlib, seaborn, sklearn, StandardScaler, PolynomialFeatures, 
+( Data analysis and visualization with python, pandas, dataframe, matplotlib, seaborn, sklearn, StandardScaler, PolynomialFeatures, 
 OneHotEncoder, train_test_split, GridSearchCV, LinearRegression, Ridge, Lasso, RidgeCV, LassoCV, ElasticNetCV, mean_absolute_error, mean_squared_error, r2_score, SequentialFeatureSelector \
-Project location: https://github.com/parthabiswas1/UCBerkeley-project-whatDrivesPriceOfCar) 
+\
+Project location: https://github.com/parthabiswas1/UCBerkeley-project-whatDrivesPriceOfCar ) 
 
 ## Problem Statement
 
@@ -28,6 +29,9 @@ Below are a summary of observations and findings.
 
 ## Data exploration results ** vehicles ** dataset
 
+### Sample from original dataset
+![Original Dataset](images/original_data.png)
+
 1. Did basic inspection of data - head(), dtypes, shape, describe()
 
 2. Calculated missing counts percentages with isnull().sum() and identified columns that can be dropped because high % of data is missing. **size** qualifies as **70%** of size is missing.
@@ -48,6 +52,8 @@ Below are a summary of observations and findings.
    d) Incorect pricing - Less than 100 and more than $200K. These were about 8.5% of the rows. Since these also can distort the model performance, decided to drop them.
 
 ## Data cleaning execution
+![Data after cleaning](images/data_after_cleaning.png)
+(Data after cleaning)
 
 1. **Data imputation** - All nulls in non numeric features are replaced with 'unknown'
 
@@ -97,8 +103,55 @@ Below are a summary of observations and findings.
 
 (Note: I did not do PCA because I will be doing Ridge and LASSO. Ridge handles multicollinearity (features highly corelated to each other) by shrinking correlated coefficients. LASSO adds both shrinkage and feature selection. PCA removes collinearity but basically redundant in this scenario, it is also hard to interpret the data.)
 
-![Coffee House coupon acceptance rates](images/coffee_coupon_acceptance.png)
+![Price Distribution of vehicles after cleaning](images/vehicle_price_dist.png)
 
+Histogram has a right scewed shape - as price increases count decreases. Main cluster is around 5k - 20k. Long tail repesents expensive/luxury cars. Looks good. Ready to create model 
+
+## **Modeling Plan**
+
+**Objective:**
+We want to understand what drives used car prices and build a model that can reasonably predict them.
+
+1. I will start with a baseline **Linear Regression** model and establish a benchmark of MAE (Mean Squared Error, RMSE (Root Mean Squared Error) and R^2 (Coeff of Determination, If 1 then perfect fit, If 0= Model did not understand anything :-) , a -ve value will be worse than baseline)
+
+2. I will do **Polynomial & Interaction** Features to expand the datset and capture non linear effects.
+
+3. I will do Regularization: with **Ridge** (adds penalty to shrink coefficients) & **Lasso** (can reduce some coeffs to 0 there by removing features - feature selection) this is the way Lasso will reduce complexity of the model.
+
+4. Next I wil create a pipeline and combine Ridge and Lasso to see if the model performance improves.  
+
+5. After that I will do Sequential Feature Selector to reduce feature sets further if needed.
+
+## **Model Execution Observations**
+
+### Notes: Resource is a huge issue. Many of the Model executions did not complete. Moved to Google Colab and was able to complete some executions. Had to reduce parameters Cross Validation and Max iterations in LASSO to get the execution to complete. Could not club together ridge and lasso in a pipeline as it never completed.
+
+### Strategy I
+   Did **baseline LinearRegression** - Training and Test R^2 where close .555 and .558 which meant the model was stable. This also meant the model was only able to explain half the variations in the used car prices.     Test MAE: $ 6480.52, Test RMSE: $ 10011.37. So the predictions were off by quite a bit (comaprison table presented later ).
+
+   After execution of **Ridge** there was not much change. Alpha=1
+
+   After execution of **LASSO** very minimal change Test R^2: 0.555, Test MAE: $ 6479.7, Test RMSE: $ 10012.63
+
+   ![Residual](images/residual.png)\
+   I was expecting residuals (errors) to be scattered randomly around 0. What I got was triangle/funnel shape. The residual spread gets wider as predicted price increases. SO errors aren’t constant across price levels. This could mean the model predicts cheaper cars more consistently, but does not do well with expensive ones.
+
+   ![Actual vs Predicted](images/actual_predicted.png)\
+   the plot shows heavy clustering at lower prices (0–40k). Looks like the predictions are fairly reasonable in this range, but still spread out. The cloud falls below the diagonal and clustoring below 0 which many mean that the model predicts low prices for more expensive cars.
+
+   ![Coefficients](images/coeff.png)
+
+### Strategy II
+   Log-transform target variable Price. Since there is a wide spread, prices are skewed, most are cheap cars but few are very expensive. Log will compress the scale. This will hopefully stabilize variance and makes regression handle extremes better.
+
+![Log Transform](images/log_transform.png) \
+Test R^2: 0.443, Test MAE: $ 6447.59, Test RMSE: $ 10414.08. So there was minimal improvement, Model could explain only 44% of the variations, MAE and RMSE came down a bit.
+
+### Strategy III
+Explore non linear relationships for 'car_age', 'odometer', 'condition', 'title_status', PolynomialFeatures with degree=2. Polynomial expansion often creates features on very different scales. So standardization is important. Apply StandardScaler and then do RidgeCV and LassoCV to see if there is any improvements
+
+![Log Transform](images/log_transform.png) \
+Test R^2: 0.4912195805665599, Test MAE: $ 5949.25, Test RMSE: $ 9878.06
 ## Recommendations
 
 - Create a marketing campaign targeting young adult drivers who frequently go to bars, are not economically well off, do not have kid and are employed in more urban settings.
