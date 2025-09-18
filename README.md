@@ -152,23 +152,40 @@ Explore non linear relationships for 'car_age', 'odometer', 'condition', 'title_
 
 ![Log Transform](images/log_transform.png) \
 Test R^2: 0.4912195805665599, Test MAE: $ 5949.25, Test RMSE: $ 9878.06
-## Recommendations
 
-- Create a marketing campaign targeting young adult drivers who frequently go to bars, are not economically well off, do not have kid and are employed in more urban settings.
-- Make the bar coupon more attractive to low income earners by increasing the discount rate or by combining it with resturant discount offers.
 
-## Obsevations - **Coffee House coupons**
+### Strategy IV
 
-![Coffee House coupon acceptance rates](images/coffee_coupon_acceptance.png)
+Split the dataset into Luxury and Regular cars and try a two model strategy. Did not see any significant improvement
 
-- Frequent coffee house visitors (1 or more per month) accepted more coupons(64.73% - 68.24%)
-- Morning coffee house visitors (10AM) have a higher coupon acceptance rate (63.43%).
-- Irrespective of marital status, a high rate of acceptance(44.4% - 65.6%) among drivers who go to coffee houses in the morning (10AM).
-- Highest rate of acceptance (76.9%) is by divorced drivers who go to coffee houses late in the evening (10PM)
-- Drivers who have no urgent place to go in the morning (10AM) or late evening (10PM) have higher coupon acceptance rates (63.4% - 68.7%)
-- Young single females divers with some college earning less than $12.5k who went to coffee houses in the afternoon accepted coffee coupons at the highest rate
-- Overall **49.5%** of coffee house coupons were accepted. This shows that close to majority of the  drivers were interested in Coffee House coupons</li>
+Linear Regression - Luxury Cars R^2 =0.425, MAE  8983.38, RMSE= 16381.599799
+Linear Regression - Regular Cars R^2 =0.44, MAE  6384.412946, RMSE= 10275.45
+<br>
+<br>
+<br>
 
-## Recommendations
-- Run a targeted marketing campaign focused on young female drivers, drivers who frequented coffee houses often and drives to nowhere particular and divorcees who go to coffee houses late in the evening.
 
+# Why some used cars sell at a higer price, compared to others
+
+##  Used Car Price drivers: Data-Driven Insights for Dealers
+
+### Executive Summary
+
+Using regression analysis on a large dataset of used car listings, I examined what drives vehicle prices in today’s market. My models achieved predictive performance 0.49–0.56, meaning they explain about half of the variation in prices. While not perfect, these results highlight key factors that consistently impact resale value.
+
+The findings confirm that: car age, mileage, condition, brand, and title status are the most important price drivers.
+
+![Top Drivers of Price](images/top_drivers.png)
+
+### Age of the car is the top driver of price
+Cars under five years will sell at a premium.
+
+### Odometer is a prime driver of price
+Low milage will sell at a premium. Higher odometer readings reduce price consistently.
+
+### Condition & Title Status
+Shows as positive drivers of price. A clean title and a car in good condition will sell at a higher price.
+
+### Fuel type
+
+Hybrid seems to be more preferred and a driver of price.
