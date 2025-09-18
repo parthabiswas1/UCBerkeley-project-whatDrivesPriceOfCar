@@ -94,8 +94,9 @@ Below are a summary of observations and findings.
      fuel, transmission, drive, paint_color, type, manufacturer.
 
 
-   C. **Feature creation** \
-     i) Created a column called **car_age**. Everyone wants to know how old is the car and the age is important to the buying decision.  \
+   C. **Feature creation**
+   
+     i) Created a column called **car_age**. Everyone wants to know how old is the car and the age is important to the buying decision.  
 
      Drop **year**, no more needed
 
