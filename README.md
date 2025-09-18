@@ -1,8 +1,9 @@
 # UC Berkeley ML/AI project: What Drives the Price of a Car?
 ( Data analysis and visualization with python, pandas, dataframe, matplotlib, seaborn, sklearn, StandardScaler, PolynomialFeatures, 
-OneHotEncoder, train_test_split, GridSearchCV, LinearRegression, Ridge, Lasso, RidgeCV, LassoCV, ElasticNetCV, mean_absolute_error, mean_squared_error, r2_score, SequentialFeatureSelector \
-\
-Project location: https://github.com/parthabiswas1/UCBerkeley-project-whatDrivesPriceOfCar ) 
+OneHotEncoder, train_test_split, GridSearchCV, LinearRegression, Ridge, Lasso, RidgeCV, LassoCV, ElasticNetCV, mean_absolute_error, mean_squared_error, r2_score, SequentialFeatureSelector )
+
+
+Project location: https://github.com/parthabiswas1/UCBerkeley-project-whatDrivesPriceOfCar 
 
 ## Problem Statement
 
